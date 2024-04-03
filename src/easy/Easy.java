@@ -1,5 +1,8 @@
 package easy;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Easy {
     public int[] twoSum(int[] nums, int target) {
         int[] solution = new int[2];
@@ -47,4 +50,32 @@ public class Easy {
         }
         return false;
     }
+public boolean isAnagram(String s, String t) {
+        HashMap<Character, Integer> letters = new HashMap<Character, Integer>();
+        for (int i = 0; i < s.length(); i++) {
+            Character letter = s.charAt(i);
+            if (letters.containsKey(letter)) {
+                letters.put(letter, letters.get(letter) + 1);
+            } else {
+                letters.put(letter, 1);
+            }
+        }
+
+        for (int i = 0; i < t.length(); i++) {
+            char letter = t.charAt(i);
+            if (letters.containsKey(letter) && letters.get(letter) > 0) {
+                letters.put(letter, letters.get(letter) - 1);
+            } else {
+                return false;
+            }
+        }
+
+        for (int value : letters.values()) {
+            if (value != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
