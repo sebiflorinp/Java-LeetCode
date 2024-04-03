@@ -50,32 +50,61 @@ public class Easy {
         }
         return false;
     }
-public boolean isAnagram(String s, String t) {
-        HashMap<Character, Integer> letters = new HashMap<Character, Integer>();
-        for (int i = 0; i < s.length(); i++) {
-            Character letter = s.charAt(i);
-            if (letters.containsKey(letter)) {
-                letters.put(letter, letters.get(letter) + 1);
-            } else {
-                letters.put(letter, 1);
-            }
+    public boolean isAnagram(String s, String t) {
+        HashMap<Character, Integer> letters = new HashMap<>();
+        for (Character letter: s.toCharArray()) {
+            int count = letters.getOrDefault(letter, 0);
+            letters.put(letter, count + 1);
         }
 
-        for (int i = 0; i < t.length(); i++) {
-            char letter = t.charAt(i);
-            if (letters.containsKey(letter) && letters.get(letter) > 0) {
-                letters.put(letter, letters.get(letter) - 1);
-            } else {
+        for (Character letter: t.toCharArray()) {
+            int count = letters.getOrDefault(letter, 0);
+            if (count == 0) {
                 return false;
+            } else {
+                letters.put(letter, count - 1);
             }
         }
 
-        for (int value : letters.values()) {
+        for (int value: letters.values()) {
             if (value != 0) {
                 return false;
             }
         }
+
         return true;
     }
 
+    public int romanToInt(String s) {
+        int result = 0;
+        int lettersChecked = 0;
+        HashMap<Character, Integer> romanNumbers = new HashMap<>();
+
+        // add the letters in the hash map
+        romanNumbers.put('I', 1);
+        romanNumbers.put('V', 5);
+        romanNumbers.put('X', 10);
+        romanNumbers.put('L', 50);
+        romanNumbers.put('C', 100);
+        romanNumbers.put('D', 500);
+        romanNumbers.put('M', 1000);
+
+        for (int i = 0; i < s.length() - 1; i++) {
+            int romanNumber1 = romanNumbers.get(s.charAt(i));
+            int romanNumber2 = romanNumbers.get(s.charAt(i + 1));
+            if (romanNumber1 >= romanNumber2) {
+                lettersChecked++;
+                result += romanNumber1;
+            } else {
+                lettersChecked += 2;
+                i++;
+                result += romanNumber2 - romanNumber1;
+            }
+        }
+
+        if (lettersChecked != s.length()) {
+            result += romanNumbers.get(s.charAt(s.length() - 1));
+        }
+        return result;
+    }
 }
