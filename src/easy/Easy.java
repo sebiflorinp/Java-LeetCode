@@ -18,4 +18,22 @@ public class Easy {
         // it will never get here, it is assumed that there is one solution
         return solution;
     }
+
+    public boolean isPalindrome(int x) {
+        // convert the number to a string
+        String number = Integer.toString(x);
+
+        // use two pointers to see if it is a palindrome
+        int p1 = 0;
+        int p2 = number.length() - 1;
+        while (p1 < p2) {
+            if (number.charAt(p1) != number.charAt(p2)) {
+                return false;
+            }
+            p1++;
+            p2--;
+        }
+
+        return true;
+    }
 }
