@@ -126,4 +126,28 @@ public class Easy {
         }
         return targetPosition;
     }
+
+    public boolean isPalindrome(String s) {
+        // create new string and remove all elements that are not letters
+        String formattedString = "";
+        for (int i = 0; i < s.length(); i++) {
+            Character character = s.charAt(i);
+            if ('a' <= character && character <= 'z' || 'A' <= character && character <= 'Z' || '0' <= character && character <= '9') {
+                Character characterToAdd = Character.toLowerCase(character);
+                formattedString = formattedString.concat(characterToAdd.toString());
+            }
+        }
+
+        // check if the number is a palindrome
+        int p1 = 0;
+        int p2 = formattedString.length() - 1;
+        while (p1 <= p2) {
+            if (formattedString.charAt(p1) != formattedString.charAt(p2)) {
+                return false;
+            }
+            p1++;
+            p2--;
+        }
+        return true;
+    }
 }
