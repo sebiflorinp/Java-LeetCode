@@ -150,4 +150,20 @@ public class Easy {
         }
         return true;
     }
+
+    public int[] twoSumOrdered(int[] numbers, int target) {
+        int p1 = 0;
+        int p2 = numbers.length - 1;
+        while (numbers[p1] + numbers[p2] != target) {
+            if (numbers[p1] + numbers[p2] < target) {
+                p1++;
+            } else {
+                p2--;
+            }
+        }
+        int[] solution = new int[2];
+        solution[0] = p1 + 1;
+        solution[1] = p2 + 1;
+        return solution;
+    }
 }
