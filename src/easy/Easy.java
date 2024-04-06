@@ -262,6 +262,35 @@ public class Easy {
 
         return result;
     }
+
+    public String gcdOfStrings(String str1, String str2) {
+        int l1 = str1.length();
+        int l2 = str2.length();
+        while (l1 != l2) {
+            if (l1 < l2) {
+                l2 -= l1;
+            } else {
+                l1 -= l2;
+            }
+        }
+        String gdc = str1.substring(0 , l1);
+        int start = 0;
+        while(start < Math.max(str1.length(), str2.length())) {
+            if (start + l1 <= str1.length()) {
+                if (!str1.substring(start, start + l1).equals(gdc)) {
+                    return "";
+                }
+            }
+
+            if (start + l1 <= str2.length()) {
+                if (!str2.substring(start, start + l1).equals(gdc)) {
+                    return "";
+                }
+            }
+            start += l1;
+        }
+        return gdc;
+    }
 }
 
 
