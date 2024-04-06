@@ -231,6 +231,37 @@ public class Easy {
             return stoneQueue.remove();
         }
     }
+
+    public String mergeAlternately(String word1, String word2) {
+        char[] word1Chars = word1.toCharArray();
+        char[] word2Chars = word2.toCharArray();
+        int index1=0;
+        int index2=0;
+        String result = "";
+        while (index1 < word1.length() && index2 < word2.length()) {
+            if (index1 <= index2) {
+                result = result.concat(Character.toString(word1Chars[index1]));
+                index1 += 1;
+            } else {
+                result = result.concat(Character.toString(word2Chars[index2]));
+                index2 += 1;
+            }
+        }
+
+        if (index1 < word1.length()) {
+            for (; index1 < word1.length(); index1++) {
+                result = result.concat(Character.toString(word1Chars[index1]));
+            }
+        }
+
+        if (index2 < word2.length()) {
+            for (; index2 < word2.length(); index2++) {
+                result = result.concat(Character.toString(word2Chars[index2]));
+            }
+        }
+
+        return result;
+    }
 }
 
 
