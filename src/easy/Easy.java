@@ -2,6 +2,7 @@ package easy;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 public class Easy {
     public int[] twoSum(int[] nums, int target) {
@@ -165,5 +166,29 @@ public class Easy {
         solution[0] = p1 + 1;
         solution[1] = p2 + 1;
         return solution;
+    }
+
+    public boolean isValid(String s) {
+        Stack<Character> paranthesisStack = new Stack<>();
+        for (Character paranthesis: s.toCharArray()) {
+            if (paranthesis == '(' || paranthesis == '[' || paranthesis == '{') {
+                paranthesisStack.push(paranthesis);
+            } else {
+                if (paranthesisStack.empty()) {
+                    return false;
+                }
+                boolean comparisonResult = switch (paranthesisStack.peek()) {
+                    case '(' -> paranthesis == ')';
+                    case '[' -> paranthesis == ']';
+                    default -> paranthesis == '}';
+                };
+                if (!comparisonResult) {
+                    return false;
+                }
+                paranthesisStack.pop();
+            }
+        }
+
+        return paranthesisStack.empty();
     }
 }
