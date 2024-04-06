@@ -2,6 +2,7 @@ package easy;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Stack;
 
 public class Easy {
@@ -204,4 +205,32 @@ public class Easy {
         }
         return profit;
     }
+
+    public int lastStoneWeight(int[] stones) {
+        PriorityQueue<Integer> stoneQueue = new PriorityQueue<>(new java.util.Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o2.compareTo(o1);
+            }
+        });
+        for (int stone: stones) {
+            stoneQueue.add(stone);
+        }
+
+        while (stoneQueue.size() > 1) {
+            int stone1 = stoneQueue.remove();
+            int stone2 = stoneQueue.remove();
+            if (stone1 - stone2 != 0) {
+                stoneQueue.add(stone1 - stone2);
+            }
+        }
+
+        if (stoneQueue.isEmpty()) {
+            return 0;
+        } else {
+            return stoneQueue.remove();
+        }
+    }
 }
+
+
