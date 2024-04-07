@@ -1,5 +1,6 @@
 package easy;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Easy {
@@ -305,6 +306,59 @@ public class Easy {
         }
 
         return result;
+    }
+
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        if (flowerbed.length == 1) {
+            if (flowerbed[0] == 0) {
+              return n <= 1;
+            } else {
+                return n == 0;
+            }
+        }
+        int placedFlowers = 0;
+        for (int i = 0; i < flowerbed.length ; i++) {
+            if (i == 0) {
+                if (flowerbed[i] == 0 && flowerbed[i + 1] == 0) {
+                    placedFlowers++;
+                    flowerbed[i] = 1;
+                }
+            } else if (i == flowerbed.length - 1) {
+                if (flowerbed[i] == 0 && flowerbed[i - 1] == 0) {
+                    placedFlowers++;
+                    flowerbed[i] = 1;
+                }
+            } else if (flowerbed[i-1] + flowerbed[i] + flowerbed[i + 1] == 0) {
+                placedFlowers++;
+                flowerbed[i] = 1;
+            }
+        }
+
+        return placedFlowers >= n;
+    }
+
+    public String reverseVowels(String s) {
+        char[] characters = s.toCharArray();
+        int p1 = 0;
+        int p2 = characters.length - 1;
+        while (p1 < p2) {
+            if ("AEIOUaeiou".indexOf(characters[p1]) != - 1 && "AEIOUaeiou".indexOf(characters[p2]) != - 1) {
+                char aux = characters[p1];
+                characters[p1] = characters[p2];
+                characters[p2] = aux;
+                p1++;
+                p2--;
+            }
+
+            if ("AEIOUaeoiu".indexOf(characters[p1]) == -1) {
+                p1++;
+            }
+
+            if ("AEIOUaeiou".indexOf(characters[p2]) == -1) {
+                p2--;
+            }
+        }
+       return new String(characters);
     }
 }
 
