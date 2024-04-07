@@ -1,9 +1,6 @@
 package easy;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Stack;
+import java.util.*;
 
 public class Easy {
     public int[] twoSum(int[] nums, int target) {
@@ -207,7 +204,7 @@ public class Easy {
     }
 
     public int lastStoneWeight(int[] stones) {
-        PriorityQueue<Integer> stoneQueue = new PriorityQueue<>(new java.util.Comparator<Integer>() {
+        PriorityQueue<Integer> stoneQueue = new PriorityQueue<>(new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
                 return o2.compareTo(o1);
@@ -290,6 +287,24 @@ public class Easy {
             start += l1;
         }
         return gdc;
+    }
+
+    public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
+        // find the max amount of candies
+        int maxCandies = 0;
+        for (int candy: candies) {
+            if (candy > maxCandies) {
+                maxCandies = candy;
+            }
+        }
+
+        // create the result
+        List<Boolean> result = new ArrayList<>();
+        for (int candy: candies) {
+            result.add(candy + extraCandies >= maxCandies);
+        }
+
+        return result;
     }
 }
 
