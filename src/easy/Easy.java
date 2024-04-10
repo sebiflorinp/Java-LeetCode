@@ -445,6 +445,27 @@ public class Easy {
         result.add(l2);
         return result;
     }
+
+    public int tribonacci(int n) {
+        int[] fibonacci = new int[200];
+        fibonacci[0] = 0;
+        fibonacci[1] = 1;
+        fibonacci[2] = 1;
+        for(int i = 3; i <= n; i++) {
+            fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2] + fibonacci[i - 3];
+        }
+        return fibonacci[n];
+    }
+
+    public int minCostClimbingStairs(int[] cost) {
+        int[] minCost = new int[2000];
+        minCost[0] = cost[0];
+        minCost[1] = cost[1];
+        for (int i = 2; i < cost.length; i++) {
+            minCost[i] = cost[i] + Math.min(minCost[i-1], minCost[i-2]);
+        }
+        return Math.min(minCost[cost.length - 1], minCost[cost.length - 2]);
+    }
 }
 
 
