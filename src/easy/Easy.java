@@ -360,6 +360,91 @@ public class Easy {
         }
        return new String(characters);
     }
+
+    public void moveZeroes(int[] nums) {
+        int p1 = 0;
+        int p2 = 1;
+        while (p2 < nums.length) {
+            if (nums[p1] == 0 && nums[p2] != 0) {
+                int aux = nums[p1];
+                nums[p1] = nums[p2];
+                nums[p2] = aux;
+                p1++;
+            }
+            p2++;
+            if (nums[p1] != 0) {
+                p1++;
+            }
+        }
+    }
+
+    public boolean isSubsequence(String s, String t) {
+        char[] sChars = s.toCharArray();
+        char[] tChars = t.toCharArray();
+        int p1 = 0;
+        int p2 = 0;
+        int foundLetters = 0;
+        if (s.isEmpty()) {
+            return true;
+        }
+
+        while (p2 < t.length()) {
+            if (sChars[p1] == tChars[p2]) {
+                p1++;
+                foundLetters++;
+            }
+            p2++;
+            if (p1 == s.length()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public double findMaxAverage(int[] nums, int k) {
+        int sum = 0;
+        for (int i = 0; i < k; i++) {
+            sum+= nums[i];
+        }
+        int maxSum = sum;
+        for(int i = 1; i < nums.length - k; i++) {
+            sum -= nums[i - 1];
+            sum += nums[i + k - 1];
+            if (sum >= maxSum) {
+                maxSum = sum;
+            }
+        }
+        return (double) maxSum / k;
+    }
+
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+        HashMap<Integer, Integer> values = new HashMap<Integer, Integer>();
+        for (int number: nums1) {
+            values.put(number, 1);
+        }
+
+        for (int number: nums2) {
+            if (values.containsKey(number)) {
+                values.put(number, 3);
+            } else {
+                values.put(number, 2);
+            }
+        }
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> l1 = new ArrayList<>();
+        List<Integer> l2 = new ArrayList<>();
+        for(int key: values.keySet()) {
+            if (values.get(key) == 1) {
+                l1.add(key);
+            } else if (values.get(key) == 2) {
+                l2.add(key);
+            }
+        }
+        result.add(l1);
+        result.add(l2);
+        return result;
+    }
 }
 
 
