@@ -425,8 +425,11 @@ public class Easy {
         }
 
         for (int number: nums2) {
+
             if (values.containsKey(number)) {
-                values.put(number, 3);
+                if (values.get(number) == 1) {
+                    values.replace(number, 3);
+                }
             } else {
                 values.put(number, 2);
             }
@@ -465,6 +468,27 @@ public class Easy {
             minCost[i] = cost[i] + Math.min(minCost[i-1], minCost[i-2]);
         }
         return Math.min(minCost[cost.length - 1], minCost[cost.length - 2]);
+    }
+
+    public boolean uniqueOccurrences(int[] arr) {
+        HashMap<Integer, Integer> occurrences = new HashMap<>();
+        HashSet<Integer> numberOfOccurrences = new HashSet<>();
+        for (int number: arr) {
+            if (!occurrences.containsKey(number)) {
+                occurrences.put(number, 0);
+            } else {
+                occurrences.replace(number, occurrences.get(number) + 1);
+            }
+        }
+
+        for (int value: occurrences.values()) {
+            if (numberOfOccurrences.contains(value)) {
+                return false;
+            } else {
+                numberOfOccurrences.add(value);
+            }
+        }
+        return true;
     }
 }
 
